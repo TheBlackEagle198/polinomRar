@@ -13,13 +13,12 @@ class PolinomRar{
 
     public:
         PolinomRar();
-        PolinomRar(const PolinomRar &);
-        PolinomRar(int , int, int);
+        PolinomRar(const PolinomRar &myPol);
         ~PolinomRar();
         int grad(){return m_grad;}
         int valIn(int X);
-        PolinomRar operator+(PolinomRar);
-        PolinomRar operator*(PolinomRar);
-        friend istream& operator>>(istream& in, PolinomRar&);
-        friend ostream& operator<<(ostream& out, PolinomRar&);
+        friend PolinomRar operator+(PolinomRar &, PolinomRar &);
+        friend PolinomRar operator*(PolinomRar &, PolinomRar &);
+        friend istream& operator>>(istream& in, PolinomRar& myPol);
+        friend ostream& operator<<(ostream& out, PolinomRar& myPol);
 };
