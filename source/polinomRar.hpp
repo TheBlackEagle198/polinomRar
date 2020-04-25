@@ -3,7 +3,8 @@ using namespace std;
 class PolinomRar{
     private:
         int m_grad;
-        int m_indice;
+        int m_termeni;
+        int m_coeficient;
 
     public:
         PolinomRar operator+(PolinomRar);
@@ -12,7 +13,7 @@ class PolinomRar{
         friend ostream& operator<<(ostream& out, PolinomRar&);
         PolinomRar();
         PolinomRar(const PolinomRar &);
-        PolinomRar(int , int);
+        PolinomRar(int , int, int);
         ~PolinomRar();
         int grad(){return m_grad;}
         int valIn(int X);
