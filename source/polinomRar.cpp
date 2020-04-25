@@ -6,26 +6,31 @@ PolinomRar::PolinomRar(){
     m_coeficient=0;
     m_valoare=0;
 }
+
 PolinomRar::PolinomRar(const PolinomRar& myPol){
     m_grad=myPol.m_grad;
     m_termeni=myPol.m_termeni;
     m_coeficient=myPol.m_coeficient;
 }
-/* PolinomRar operator+(PolinomRar &a, PolinomRar &b){
+
+PolinomRar operator+(PolinomRar &a, PolinomRar &b){
     PolinomRar sum;
-    for (PolinomRar::m_Nod *i_ptr = a->m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node){
+    for (PolinomRar::m_Nod *i_ptr = a.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node){
 
     }
-} */
+}
+
 int PolinomRar::valIn(int X){
     for (PolinomRar::m_Nod *i_ptr = this->m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node){
         m_valoare=i_ptr->coeficient*pow(X,i_ptr->rang)+m_valoare;
     }
     return m_valoare;
 }
+
 PolinomRar::~PolinomRar() {
     cout << "Destruction complete!";
 }
+
 istream& operator>>(istream& in, PolinomRar& myPol) {
     in >> myPol.m_grad >> myPol.m_termeni;
     int coeficient, rang;
