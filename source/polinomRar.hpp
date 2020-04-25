@@ -23,3 +23,4 @@ class PolinomRar{
         friend istream& operator>>(istream& in, PolinomRar&);
         friend ostream& operator<<(ostream& out, PolinomRar&);
 };
+//verificare
