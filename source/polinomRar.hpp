@@ -24,3 +24,4 @@ class PolinomRar{
         friend ostream& operator<<(ostream& out, PolinomRar&);
 };
 //verificare
+//nr 2
