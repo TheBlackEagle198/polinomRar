@@ -3,7 +3,11 @@ using namespace std;
 class PolinomRar{
     private:
         int m_grad;
-        int m_indice;
+        int m_coeficient;
+        struct m_Nod {
+            int coeficient, rang;
+            m_Nod *next_node;
+        };
 
     public:
         PolinomRar();
