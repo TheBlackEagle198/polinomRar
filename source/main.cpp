@@ -9,31 +9,16 @@ __________      .__  .__
 
 #include <iostream>
 #include "polinomRar.hpp"
+#include "../etc/interfaceText.h"
 
 PolinomRar pol, pol2;
 char input;
 
 int main() {
-    cout << "┌────────────────────────────────────────────────────────────────────────┐" << endl;
-    cout << "│ __________      .__  .__                                               │" << endl;
-    cout << "│  \\______   \\____ |  | |__| ____   ____   _____   ____________ _______  │" << endl;
-    cout << "│   |     ___/  _ \\|  | |  |/    \\ /  _ \\ /     \\  \\_  __ \\__  \\\\_  __ \\ │" << endl;
-    cout << "│   |    |  (  <_> |  |_|  |   |  (  <_> |  Y Y  \\  |  | \\// __ \\|  | \\/ │" << endl;
-    cout << "│   |____|   \\____/|____|__|___|  /\\____/|__|_|  /  |__|  (____  |__|    │" << endl;
-    cout << "│                               \\/             \\/              \\/        │" << endl;
-    cout << "└────────────────────────────────────────────────────────────────────────┘" << endl << endl << endl;
+    printLogo();
 
     do {
-        cout << "                    ┌─────────┰───────────────────────────┐" << endl;
-        cout << "                    │ Optiune │        Operatie           │" << endl;
-        cout << "                    │─────────╀───────────────────────────│" << endl;
-        cout << "                    │    1    │ Citirea polinomului       │" << endl;
-        cout << "                    │    2    │ Scrierea polinoumului     │" << endl;
-        cout << "                    │    3    │ Valoarea in punctul x     │" << endl;
-        cout << "                    │    4    │    Inmultirea cu scalar   │" << endl;
-        cout << "                    │    5    │ Aduanarea a doua polinoame│" << endl;
-        cout << "                    │    e    │        Iesire             │" << endl;
-        cout << "                    └─────────┴───────────────────────────┘" << endl << endl;
+        printMenu();
         cout << "                                    OPTIUNE: ";
         cin >> input;
         cout << endl;
@@ -57,6 +42,9 @@ int main() {
             // aduna doua polinoame rare
                 // pol.add(pol2);
                 cout << "Suma celor doua polinoame este: " << endl;
+                break;
+            case 'e':
+                cout << "Iesire!" << endl << endl;
                 break;
             default:
                 cout << "Invalid" << endl;
