@@ -1,9 +1,8 @@
 #include "polinomRar.hpp"
 
 PolinomRar::PolinomRar(){
-    m_grad=0;
-    m_termeni=0;
-    m_valoare=0;
+    m_grad = 0;
+    m_termeni = 0;
 }
 
 PolinomRar::PolinomRar(const PolinomRar& myPol){
@@ -32,10 +31,11 @@ PolinomRar::~PolinomRar() {
 }
 
 int PolinomRar::valIn(int X){
+    int valoare;
     for (PolinomRar::m_Nod *i_ptr = this->m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
-        m_valoare=i_ptr->coeficient*pow(X,i_ptr->rang)+m_valoare;
+        valoare = i_ptr->coeficient * pow(X,i_ptr->rang) + valoare;
     }
-    return m_valoare;
+    return valoare;
 }
 
 PolinomRar &operator*(PolinomRar &a, int x) {

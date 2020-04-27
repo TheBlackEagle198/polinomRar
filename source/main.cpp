@@ -9,14 +9,13 @@ __________      .__  .__
 
 #include <iostream>
 #include "polinomRar.hpp"
-#include "../etc/interfaceText.h"
+#include "../etc/interfaceText.hpp"
 
-PolinomRar pol;
+PolinomRar pol, pol2;
 char input;
 
 int main() {
     printLogo();
-
     do {
         printMenu();
         cout << "                                    OPTIUNE: ";
@@ -33,7 +32,6 @@ int main() {
                 break;
             case '3':
             // valoarea in punctul x
-                // pol.valIn(x);
                 int x, rez;
                 cout << "Dati x: ";
                 cin >> x;
@@ -42,15 +40,16 @@ int main() {
                 break;
             case '4':
             // inmultirea cu un scalar
-                // pol.multBy(x);
                 cout << "Dati scalarul cu care inmultim polinomul: ";
                 cin >> x;
-                cout << "Valoarea polinomului inmultit cu " << x << " este: " << endl;  
+                pol = pol * x;
+                cout << "Valoarea polinomului inmultit cu " << x << " este: " << pol << endl;  
                 break;
             case '5':
             // aduna doua polinoame rare
-                // pol.add(pol2);
-                cout << "Suma celor doua polinoame este: " << endl;
+                cout << "Introduceti al doilea polinom: ";
+                cin >> pol2;
+                cout << "Suma celor doua polinoame este: " << pol + pol2 << endl;
                 break;
             case 'e':
                 cout << "Iesire!" << endl << endl;
@@ -60,5 +59,4 @@ int main() {
                 break;
         }
     } while(input != 'e');
-    std::cout << "out";
 }
