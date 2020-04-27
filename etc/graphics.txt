@@ -16,13 +16,13 @@
 │                               \\/             \\/              \\/        │
 └────────────────────────────────────────────────────────────────────────┘
 
-┌─────────┰───────────────────────────┐
-│ Optiune │        Operatie           │
-├─────────╀───────────────────────────┤
-│    1    │ Citirea polinomului       │
-│    2    │ Scrierea polinoumului     │
-│    3    │ Valoarea in punctul x     │
-│    4    │    Inmultirea cu scalar   │
-│    5    │ Aduanarea a doua polinoame│
-│    e    │        Iesire             │
-└─────────┴───────────────────────────┘
+┌─────────┰────────────────────────────┐
+│ Optiune │        Operatie            │
+├─────────╀────────────────────────────┤
+│    1    │    Citirea polinomului     │
+│    2    │   Scrierea polinoumului    │
+│    3    │   Valoarea in punctul x    │
+│    4    │    Inmultirea cu scalar    │
+│    5    │ Aduanarea a doua polinoame │
+│    e    │           Iesire           │
+└─────────┴────────────────────────────┘
