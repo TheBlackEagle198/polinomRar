@@ -13,11 +13,8 @@ PolinomRar::PolinomRar(const PolinomRar& myPol){
     m_coeficient=myPol.m_coeficient;
 }
 
-PolinomRar operator+(PolinomRar &a, PolinomRar &b){
-    PolinomRar sum;
-    for (PolinomRar::m_Nod *i_ptr = a.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node){
-
-    }
+PolinomRar::~PolinomRar() {
+    cout << "Destruction complete!";
 }
 
 int PolinomRar::valIn(int X){
@@ -27,21 +24,27 @@ int PolinomRar::valIn(int X){
     return m_valoare;
 }
 
-PolinomRar::~PolinomRar() {
-    cout << "Destruction complete!";
+PolinomRar operator+(PolinomRar &a, PolinomRar &b){
+    PolinomRar sum;
+    for (PolinomRar::m_Nod *i_ptr = a.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node){
+
+    }
 }
 
 istream& operator>>(istream& in, PolinomRar& myPol) {
     in >> myPol.m_grad >> myPol.m_termeni;
     int coeficient, rang;
+    PolinomRar::m_Nod *newNode;
+    cout << "read grad, termeni";
     if (myPol.m_termeni > 0) {
+        cout << "create first node....";
         in >> coeficient >> rang;
+        myPol.m_firstNode = new PolinomRar::m_Nod;
         myPol.m_firstNode->coeficient = coeficient;
         myPol.m_firstNode->rang = rang;
         myPol.m_firstNode->next_node = nullptr;
+        cout << "done!" << endl;
     }
-
-    PolinomRar::m_Nod *newNode;
 
     for (PolinomRar::m_Nod *i_ptr = myPol.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
         newNode = new PolinomRar::m_Nod;
@@ -54,6 +57,7 @@ istream& operator>>(istream& in, PolinomRar& myPol) {
     }
     return in;
 }
+
 ostream& operator<<(ostream& out, PolinomRar& z){
     cout <<' '<< z.m_grad << ' ' << z.m_coeficient;
     return out;
