@@ -46,7 +46,9 @@ istream& operator>>(istream& in, PolinomRar& myPol) {
         cout << "done!" << endl;
     }
 
-    for (PolinomRar::m_Nod *i_ptr = myPol.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
+    PolinomRar::m_Nod *i_ptr = myPol.m_firstNode;
+
+    for (int i = 1; i < myPol.m_termeni; i++) {
         newNode = new PolinomRar::m_Nod;
         i_ptr->next_node = newNode;
 
@@ -54,11 +56,21 @@ istream& operator>>(istream& in, PolinomRar& myPol) {
         newNode->coeficient = coeficient;
         newNode->rang = rang;
         newNode->next_node = nullptr;
+        i_ptr = i_ptr->next_node;
     }
     return in;
 }
 
 ostream& operator<<(ostream& out, PolinomRar& z){
-    cout <<' '<< z.m_grad << ' ' << z.m_coeficient;
+    for (PolinomRar::m_Nod *i_ptr = z.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
+        out << i_ptr->coeficient;
+        if (i_ptr->rang != 0) {
+            out << "*X^" << i_ptr->rang;
+        }
+        if (i_ptr->next_node != nullptr) {
+            out << " + ";
+        }
+    }
+    out << endl << endl;
     return out;
 }
