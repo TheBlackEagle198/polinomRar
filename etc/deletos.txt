@@ -1,0 +1,51 @@
+    PolinomRar::m_Nod *ptrSmallerList = a.m_termeni < b.m_termeni ? a.m_firstNode : b.m_firstNode,
+                      *ptrBiggerList  = a.m_termeni > b.m_termeni ? a.m_firstNode : b.m_firstNode,
+                      *ptrSum;
+    if (a.m_termeni == b.m_termeni) {
+        ptrSmallerList = a.m_firstNode;
+        ptrBiggerList = b.m_firstNode;
+    }
+    PolinomRar sum;
+
+    int i = 0, j = 0;
+    cout << "pass 0" << endl;
+    if (ptrSmallerList->rang > ptrBiggerList->rang) {
+        i++;
+        sum.m_firstNode = buildNode(ptrSmallerList->coeficient, ptrSmallerList->rang, nullptr);
+        ptrSmallerList = ptrSmallerList->next_node;
+    } else if (ptrBiggerList->rang > ptrBiggerList->rang) {
+        j++;
+        sum.m_firstNode = buildNode(ptrBiggerList->coeficient, ptrBiggerList->rang, nullptr);
+        ptrBiggerList = ptrBiggerList->next_node;
+    } else {
+        i++; j++;
+        cout << "pass 1" << endl;
+        cout << ptrBiggerList->coeficient << endl;
+        cout << ptrSmallerList->coeficient << endl;
+        cout << ptrBiggerList->rang << endl;
+        // sum->m_firstNode = buildNode(ptrBiggerList->coeficient + ptrSmallerList->coeficient, ptrBiggerList->rang, nullptr);
+        // cout << sum->m_firstNode->coeficient << endl;
+        cout << "pass 2" << endl;
+        ptrSmallerList = ptrSmallerList->next_node;
+        cout << "pass 3" << endl;
+        ptrBiggerList = ptrBiggerList->next_node;
+        cout << "pass 4" << endl;
+    }
+    //ptrSum = sum->m_firstNode;
+
+/*     while (i < a.m_termeni && j < b.m_termeni) {
+        if (ptrSmallerList->rang > ptrBiggerList->rang) {
+            i++;
+            ptrSum->next_node = buildNode(ptrSmallerList->coeficient, ptrSmallerList->rang, nullptr);
+            ptrSmallerList = ptrSmallerList->next_node;
+        } else if (ptrBiggerList->rang > ptrBiggerList->rang) {
+            j++;
+            ptrSum->next_node = buildNode(ptrBiggerList->coeficient, ptrBiggerList->rang, nullptr);
+            ptrBiggerList = ptrBiggerList->next_node;
+        } else {
+            i++; j++;
+            ptrSum->next_node = buildNode(ptrBiggerList->coeficient + ptrSmallerList->coeficient, ptrBiggerList->rang, nullptr);
+            ptrSmallerList = ptrSmallerList->next_node;
+            ptrBiggerList = ptrBiggerList->next_node;
+        }
+    } */

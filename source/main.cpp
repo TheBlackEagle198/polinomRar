@@ -49,7 +49,8 @@ int main() {
             // aduna doua polinoame rare
                 cout << "Introduceti al doilea polinom: ";
                 cin >> pol2;
-                cout << "Suma celor doua polinoame este: " << pol + pol2 << endl;
+                cout << "Suma celor doua polinoame este: " << endl;
+                cout << pol + pol2 << endl;
                 break;
             case 'e':
                 cout << "Iesire!" << endl << endl;

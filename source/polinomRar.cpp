@@ -1,34 +1,49 @@
 #include "polinomRar.hpp"
 
+PolinomRar::m_Nod *buildNode(int coeficient, int rang, PolinomRar::m_Nod *nextNode) {
+    PolinomRar::m_Nod *newNode;
+    newNode = new PolinomRar::m_Nod;
+    newNode->coeficient = coeficient;
+    newNode->rang = rang;
+    newNode->next_node = nextNode;
+    return newNode;
+}
+
+void addToList(PolinomRar::m_Nod* firstNode, PolinomRar::m_Nod* insertedNode) {
+    for (PolinomRar::m_Nod *i_ptr = firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
+        if (i_ptr->next_node == nullptr) {
+            i_ptr->next_node = insertedNode;
+            insertedNode->next_node = nullptr;
+        }
+    }
+}
+
 PolinomRar::PolinomRar(){
     m_grad = 0;
     m_termeni = 0;
 }
 
+// --------------------------------------------------------------------------------------------------------
+
 PolinomRar::PolinomRar(const PolinomRar& myPol){
     m_grad = myPol.m_grad;
     m_termeni = myPol.m_termeni;
     PolinomRar::m_Nod *newNode, *lastNode;
-    newNode = new PolinomRar::m_Nod;
-    newNode->rang = myPol.m_firstNode->rang;
-    newNode->coeficient = myPol.m_firstNode->coeficient;
-    newNode-> next_node = nullptr;
+    newNode = buildNode(myPol.m_firstNode->coeficient, myPol.m_firstNode->rang, nullptr);
     m_firstNode = newNode;
     lastNode = m_firstNode;
 
     for (PolinomRar::m_Nod *i_ptr = myPol.m_firstNode->next_node; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
-        newNode = new PolinomRar::m_Nod;
-        newNode->rang = i_ptr->rang;
-        newNode->coeficient = i_ptr->coeficient;
-        newNode-> next_node = nullptr;
+        newNode = buildNode(i_ptr->coeficient, i_ptr->rang, nullptr);
         lastNode->next_node = newNode;
         lastNode = newNode;
     }
 }
-
+// ************************* work here ***************************************
 PolinomRar::~PolinomRar() {
     cout << "Destruction complete!";
 }
+// ***************************************************************************
 
 int PolinomRar::valIn(int X){
     int valoare;
@@ -38,6 +53,8 @@ int PolinomRar::valIn(int X){
     return valoare;
 }
 
+// --------------------------------------------------------------------------------------------------------
+
 PolinomRar &operator*(PolinomRar &a, int x) {
     for (PolinomRar::m_Nod *i_ptr = a.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
         i_ptr->coeficient = i_ptr->coeficient * x;
@@ -45,53 +62,71 @@ PolinomRar &operator*(PolinomRar &a, int x) {
     return a;
 }
 
+// ************************* work here ***************************************
 PolinomRar &operator+(PolinomRar &a, PolinomRar &b) {
-    PolinomRar::m_Nod *i_ptrBiggerList, *i_ptrSmallerList;
+    cout << "in" << endl;
+    PolinomRar::m_Nod *list1_ptr = a.m_firstNode, *list2_ptr = b.m_firstNode;
+    PolinomRar sum;
+    int list1_size = a.m_termeni, list2_size = b.m_termeni, i, j;
 
-    i_ptrBiggerList = a.m_termeni > b.m_termeni ? a.m_firstNode : b.m_firstNode;
-    i_ptrSmallerList = a.m_termeni < b.m_termeni ? a.m_firstNode : b.m_firstNode;
+    if (list1_ptr->rang > list2_ptr->rang) {
+        sum.m_firstNode = buildNode(list1_ptr->coeficient, list1_ptr->rang, nullptr);
+        i++;
+        list1_ptr = list1_ptr->next_node;
+    } else if (list1_ptr->rang == list2_ptr->rang) {
+        sum.m_firstNode = buildNode(list1_ptr->coeficient + list2_ptr->coeficient, list1_ptr->rang, nullptr);
+        i++; j++;
+        list1_ptr = list1_ptr->next_node;
+        list2_ptr = list2_ptr->next_node;
+    } else {
+        sum.m_firstNode = buildNode(list2_ptr->coeficient, list2_ptr->rang, nullptr);
+        j++;
+        list2_ptr = list2_ptr->next_node;
+    }
 
-    for (; i_ptrBiggerList != nullptr; i_ptrBiggerList = i_ptrBiggerList->next_node) {
-        if (i_ptrBiggerList->coeficient > i_ptrSmallerList->coeficient) {
-
-        } else if (i_ptrBiggerList->coeficient == i_ptrSmallerList->coeficient) {
-
+    while (i < list1_size && j < list2_size) {
+        if (list1_ptr->rang > list2_ptr->rang) {
+            sum.m_firstNode = buildNode(list1_ptr->coeficient, list1_ptr->rang, nullptr);
+            i++;
+            list1_ptr = list1_ptr->next_node;
+        } else if (list1_ptr->rang == list2_ptr->rang) {
+            sum.m_firstNode = buildNode(list1_ptr->coeficient + list2_ptr->coeficient, list1_ptr->rang, nullptr);
+            i++; j++;
+            list1_ptr = list1_ptr->next_node;
+            list2_ptr = list2_ptr->next_node;
         } else {
-
+            sum.m_firstNode = buildNode(list2_ptr->coeficient, list2_ptr->rang, nullptr);
+            j++;
+            list2_ptr = list2_ptr->next_node;
         }
     }
-    return b;
+
+    return sum;
 }
+// ****************************************************************************************************
 
 istream &operator>>(istream& in, PolinomRar& myPol) {
     in >> myPol.m_grad >> myPol.m_termeni;
     int coeficient, rang;
     PolinomRar::m_Nod *newNode;
-    cout << "read grad, termeni";
     if (myPol.m_termeni > 0) {
-        cout << "create first node....";
         in >> coeficient >> rang;
-        myPol.m_firstNode = new PolinomRar::m_Nod;
-        myPol.m_firstNode->coeficient = coeficient;
-        myPol.m_firstNode->rang = rang;
-        myPol.m_firstNode->next_node = nullptr;
-        cout << "done!" << endl;
+        myPol.m_firstNode = buildNode(coeficient, rang, nullptr);
     }
 
     PolinomRar::m_Nod *i_ptr = myPol.m_firstNode;
 
     for (int i = 1; i < myPol.m_termeni; i++) {
-        newNode = new PolinomRar::m_Nod;
-        i_ptr->next_node = newNode;
-
         in >> coeficient >> rang;
-        newNode->coeficient = coeficient;
-        newNode->rang = rang;
-        newNode->next_node = nullptr;
+        newNode = buildNode(coeficient, rang, nullptr);
+        i_ptr->next_node = newNode;
         i_ptr = i_ptr->next_node;
     }
+    cout << "done reading" << endl;
     return in;
 }
+
+// --------------------------------------------------------------------------------------------------------
 
 ostream &operator<<(ostream& out, PolinomRar& z) {
     for (PolinomRar::m_Nod *i_ptr = z.m_firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
