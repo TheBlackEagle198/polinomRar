@@ -18,7 +18,7 @@ int main() {
     printLogo();
     do {
         printMenu();
-        cout << "                                    OPTIUNE: ";
+        cout << "                                 OPTIUNE: ";
         cin >> input;
         cout << endl;
         switch(input) {

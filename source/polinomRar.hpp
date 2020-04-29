@@ -11,14 +11,14 @@ class PolinomRar{
 
     public:
         PolinomRar();
-        PolinomRar(const PolinomRar &myPol);
+        PolinomRar(const PolinomRar &);
         ~PolinomRar();
         int grad(){return m_grad;}
-        int valIn(int X);
+        int valIn(int);
         friend m_Nod *buildNode(int ,int, m_Nod *);
         friend void addToList(m_Nod*, m_Nod*);
         friend PolinomRar &operator+(PolinomRar &, PolinomRar &);
         friend PolinomRar &operator*(PolinomRar &, int);
-        friend istream &operator>>(istream& in, PolinomRar& myPol);
-        friend ostream &operator<<(ostream& out, PolinomRar& myPol);
+        friend istream &operator>>(istream&, PolinomRar&);
+        friend ostream &operator<<(ostream&, PolinomRar&);
 };

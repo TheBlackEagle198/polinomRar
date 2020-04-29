@@ -9,6 +9,8 @@ PolinomRar::m_Nod *buildNode(int coeficient, int rang, PolinomRar::m_Nod *nextNo
     return newNode;
 }
 
+// --------------------------------------------------------------------------------------------------------
+
 void addToList(PolinomRar::m_Nod* firstNode, PolinomRar::m_Nod* insertedNode) {
     for (PolinomRar::m_Nod *i_ptr = firstNode; i_ptr != nullptr; i_ptr = i_ptr->next_node) {
         if (i_ptr->next_node == nullptr) {
@@ -17,6 +19,8 @@ void addToList(PolinomRar::m_Nod* firstNode, PolinomRar::m_Nod* insertedNode) {
         }
     }
 }
+
+// --------------------------------------------------------------------------------------------------------
 
 PolinomRar::PolinomRar(){
     m_grad = 0;
@@ -41,7 +45,13 @@ PolinomRar::PolinomRar(const PolinomRar& myPol){
 }
 // ************************* work here ***************************************
 PolinomRar::~PolinomRar() {
-    cout << "Destruction complete!";
+    PolinomRar::m_Nod *currNode, *lastNode;
+    lastNode = this->m_firstNode;
+    for (currNode = this->m_firstNode->next_node; currNode != nullptr; currNode = currNode->next_node) {
+        delete lastNode;
+        lastNode = currNode;
+    }
+    delete currNode;
 }
 // ***************************************************************************
 
@@ -63,11 +73,11 @@ PolinomRar &operator*(PolinomRar &a, int x) {
 }
 
 // ************************* work here ***************************************
+
 PolinomRar &operator+(PolinomRar &a, PolinomRar &b) {
-    cout << "in" << endl;
-    PolinomRar::m_Nod *list1_ptr = a.m_firstNode, *list2_ptr = b.m_firstNode;
+    PolinomRar::m_Nod *list1_ptr = a.m_firstNode, *list2_ptr = b.m_firstNode, *sum_ptr;
     PolinomRar sum;
-    int list1_size = a.m_termeni, list2_size = b.m_termeni, i, j;
+    int list1_size = a.m_termeni, list2_size = b.m_termeni, i = 0, j = 0;
 
     if (list1_ptr->rang > list2_ptr->rang) {
         sum.m_firstNode = buildNode(list1_ptr->coeficient, list1_ptr->rang, nullptr);
@@ -86,22 +96,35 @@ PolinomRar &operator+(PolinomRar &a, PolinomRar &b) {
 
     while (i < list1_size && j < list2_size) {
         if (list1_ptr->rang > list2_ptr->rang) {
-            sum.m_firstNode = buildNode(list1_ptr->coeficient, list1_ptr->rang, nullptr);
+            addToList(sum.m_firstNode, buildNode(list1_ptr->coeficient, list1_ptr->rang, nullptr));
             i++;
             list1_ptr = list1_ptr->next_node;
         } else if (list1_ptr->rang == list2_ptr->rang) {
-            sum.m_firstNode = buildNode(list1_ptr->coeficient + list2_ptr->coeficient, list1_ptr->rang, nullptr);
+            addToList(sum.m_firstNode, buildNode(list1_ptr->coeficient + list2_ptr->coeficient, list1_ptr->rang, nullptr));
             i++; j++;
             list1_ptr = list1_ptr->next_node;
             list2_ptr = list2_ptr->next_node;
         } else {
-            sum.m_firstNode = buildNode(list2_ptr->coeficient, list2_ptr->rang, nullptr);
+            addToList(sum.m_firstNode, buildNode(list2_ptr->coeficient, list2_ptr->rang, nullptr));
             j++;
             list2_ptr = list2_ptr->next_node;
         }
     }
 
-    return sum;
+    while (i < list1_size) {
+        addToList(sum.m_firstNode, buildNode(list1_ptr->coeficient, list1_ptr->rang, nullptr));
+        i++;
+        list1_ptr = list1_ptr->next_node;
+    }
+    while (j < list2_size) {
+        addToList(sum.m_firstNode, buildNode(list2_ptr->coeficient, list2_ptr->rang, nullptr));
+        j++;
+        list2_ptr = list2_ptr->next_node;
+    }
+    b.~PolinomRar();
+    b.m_firstNode = new PolinomRar::m_Nod;
+    *b.m_firstNode = *sum.m_firstNode; 
+    return b;
 }
 // ****************************************************************************************************
 
@@ -122,7 +145,7 @@ istream &operator>>(istream& in, PolinomRar& myPol) {
         i_ptr->next_node = newNode;
         i_ptr = i_ptr->next_node;
     }
-    cout << "done reading" << endl;
+    cout << "Citire efectuata!" << endl;
     return in;
 }
 

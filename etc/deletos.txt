@@ -49,3 +49,7 @@
             ptrBiggerList = ptrBiggerList->next_node;
         }
     } */
+1 
+40 3 23 40 12 30 11 20 
+5 
+40 4 33 40 12 33 11 20 234 1
